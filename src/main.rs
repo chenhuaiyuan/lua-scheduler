@@ -1,6 +1,5 @@
 mod cron;
 mod error;
-mod mysql;
 mod time;
 
 use crate::cron::create_cron;
@@ -14,7 +13,7 @@ use tokio::time::sleep;
 
 #[derive(Parser, Debug)]
 struct Args {
-    #[arg(short, long)]
+    #[arg(short, long, default_value = "index.lua")]
     file: String,
 }
 
@@ -25,7 +24,6 @@ async fn main() -> Result<()> {
 
     let globals = lua.globals();
     globals.set("cron", create_cron(&lua)?)?;
-    globals.set("mysql_pool", lua.create_proxy::<MysqlPool>()?)?;
 
     let file = tokio::fs::read_to_string(args.file)
         .await
