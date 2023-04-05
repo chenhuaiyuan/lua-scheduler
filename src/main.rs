@@ -19,7 +19,7 @@ struct Args {
     file: String,
 }
 
-#[tokio::main(flavor = "current_thread")]
+#[tokio::main(flavor = "multi_thread")]
 async fn main() -> Result<()> {
     let args = Args::parse();
     let lua = Lua::new();
