@@ -1,5 +1,6 @@
 use cron::error::Error as CronError;
 use mlua::Error as MluaError;
+#[cfg(feature = "mysql")]
 use mysql_async::{Error as MysqlError, UrlError};
 use std::fmt;
 use std::num::ParseIntError;
@@ -27,6 +28,7 @@ impl fmt::Display for Error {
     }
 }
 
+#[cfg(feature = "mysql")]
 impl From<UrlError> for Error {
     fn from(value: UrlError) -> Self {
         Error::new(value.to_string())
@@ -45,6 +47,7 @@ impl From<ParseIntError> for Error {
     }
 }
 
+#[cfg(feature = "mysql")]
 impl From<MysqlError> for Error {
     fn from(value: MysqlError) -> Self {
         Error::new(value.to_string())

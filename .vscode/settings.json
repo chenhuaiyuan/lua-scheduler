@@ -1,9 +1,13 @@
 {
   "Lua.diagnostics.globals": [
-    "mysql_pool",
-    "cron"
+    "sched"
   ],
   "Lua.diagnostics.disable": [
     "need-check-nil"
-  ]
+  ],
+  "rust-analyzer.linkedProjects": [
+    "./Cargo.toml",
+    "./Cargo.toml"
+  ],
+  "rust-analyzer.showUnlinkedFileNotification": false
 }

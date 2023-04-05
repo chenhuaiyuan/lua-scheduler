@@ -5,16 +5,33 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[dependencies]
-tokio = { version = "1.24", features = ["macros", "rt", "fs", "rt-multi-thread"]}
+[features]
+mysql = ["mysql_async", "dateparser"]
+time = []
 
-serde = "1.0.147"
+[dependencies]
+tokio = { version = "1", features = ["macros", "rt", "fs", "rt-multi-thread", "time"] }
+
+# serde = "1.0"
 
 cron = "0.12"
 
-mlua = {version = "0.8", features = ["lua54", "async", "vendored", "serialize"]}
+mlua = { version = "0.8", features = ["lua54", "async", "vendored", "serialize"] }
 
-clap = {version = "4.0.11", features = ["derive"]}
+clap = { version = "4.2", features = ["derive"] }
 
-dateparser = "0.1.7"
 chrono = "0.4"
+
+mysql_async = { version = "0.31", optional = true }
+dateparser = { version = "0.2", optional = true }
+
+[profile.release]
+debug = false
+lto = "fat"
+opt-level = 3
+codegen-units = 1
+panic = "abort"
+# strip = 'symbols'
+debug-assertions = false
+overflow-checks = false
+rpath = false
